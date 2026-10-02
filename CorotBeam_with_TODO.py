@@ -31,8 +31,6 @@ def beam2local_def_disp(ex,ey, disp_global):
     eVec12 = np.array([ex[1] - ex[0], ey[1] - ey[0]])
     L0 = math.sqrt(eVec12 @ eVec12)
 
-    Ld = L0 #TODO:  correct this
-
     # TODO: Quite a bit here
 
     theta1_def = 0.0  # TODO: correct this
