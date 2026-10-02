@@ -26,7 +26,7 @@ class BeamModel:
         self.Enods = None     # Element nodes, 1 based   (num_elements x 2)
         self.ep = None        # Element properties [E, A, I], E - Young's modulus, A - Cross section area, I - Moment of inertia
         self.num_elements = None
-        self.num_dofs = None
+        self.num_dofs = None 
 
         # Plotting related data
         self.plotDof = None   # Plotting dof for load displacment plot, 1 based
@@ -218,7 +218,7 @@ class CantileverWithEndMoment(BeamModel):
         self.E = 2.1e11
         self.A = 45.3e-4
         self.I = 2510e-8
-        self.ep = np.array([self.E, self.A, self.I])
+        self.ep = np.array([self.E, self.A, self.I])        # Element parameters for the beam
         self.L_total = 9.0
 
         MomentFullCircle = 2.0 * math.pi * self.E * self.I / self.L_total
