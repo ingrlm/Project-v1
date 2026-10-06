@@ -28,13 +28,19 @@ def beam2local_def_disp(ex,ey, disp_global):
     :param disp_global:  displacement vector [u1, v1, r1, u2, v2, r2] in global directions
     :return: disp_local_def: displacement vector [u1, v1, r1, u2, v2, r2] in local directions
     """
-    eVec12 = np.array([ex[1] - ex[0], ey[1] - ey[0]])
+    eVec12 = np.array([ex[1] - ex[0], 
+                       ey[1] - ey[0]])
     L0 = math.sqrt(eVec12 @ eVec12)
 
     # TODO: Quite a bit here
+    #---- begin this to do
+    dx_def = (ex[1] + disp_global[3]) - (ex[0] + disp_global[0])
+    dy_def = (ey[1] + disp_global[3]) - (ey[0] + disp_global[0])
+    Ld = math.sqrt(dx_def**2 + dy_def**2)
+    #---- end this to do
 
-    theta1_def = 0.0  # TODO: correct this
-    theta2_def = 0.0  # TODO: correct this
+    theta1_def = disp_global[2]  # TODO: correct this -DONE
+    theta2_def = disp_global[5]  # TODO: correct this -DONE
 
     def_disp_local = np.array([ -0.5*(Ld - L0),
                                 0.0,
