@@ -1,11 +1,5 @@
-
-
 import math
 import numpy as np
-
-
-
-
 
 
 def solveArchLength(model, archLength=0.02, max_steps=50, max_iter=30):
@@ -19,6 +13,10 @@ def solveArchLength(model, archLength=0.02, max_steps=50, max_iter=30):
     for iStep in range(max_steps):
 
         #TODO: Implement this
+        #---- Begin todo
+        # Er det dette som er i 20.5.4. archlength control i boken? eller tabell 22.1
+
+        #---- End todo
 
         for iIter in range(max_iter):
 
@@ -58,7 +56,7 @@ def solveNonlinLoadControl(model, load_steps=0.01, max_steps=100, max_iter=30):
 
 
 def solveLinearSteps(model, load_steps=0.01, max_steps=100):
-    # Strting point for load control algorithm.
+    # Starting point for load control algorithm.
     num_dofs = model.get_num_dofs()
     uVec = np.zeros(num_dofs)
 
