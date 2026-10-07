@@ -77,7 +77,7 @@ def beam2corot_Ke_and_Fe(ex,ey,ep, disp_global):
     #---
 
     def_disp_local = beam2local_def_disp(ex_def, ey_def, disp_global)
-    Ke_local = beam2local_stiff(L0, ep)
+    Ke_local = beam2local_stiff(L0, ep)     # Usikker på L0 eller L
 
     fe_local = Ke_local @ def_disp_local
     
