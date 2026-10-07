@@ -22,7 +22,6 @@ def rot_matrix(theta):
 
 def beam2local_def_disp(ex,ey, disp_global):
     """
-
     :param ex: element x coordinate [x1, x2] in undeformed position
     :param ey: element y coordinate [y1, y2] in undeformed position
     :param disp_global:  displacement vector [u1, v1, r1, u2, v2, r2] in global directions
@@ -75,7 +74,21 @@ def beam2corot_Ke_and_Fe(ex,ey,ep, disp_global):
     ey_def = ey + [disp_global[1], disp_global[4]]
 
     # TODO: Quite a bit here
-    Ke_global = np.zeros((6,6))
+    #---
+
+    def_disp_local = beam2local_def_disp(ex_def, ey_def, disp_global)
+    Ke_local = beam2local_stiff(L0, ep)
+
+    fe_local = Ke_local @ def_disp_local
+    
+
+    eq = np.array([qx, qy])
+
+    Ke_global, fe_int_global = beam2e(ex, ey, ep, eq)
+
+    #---
+    
+    #Ke_global = np.zeros((6,6))
     fe_int_global = np.zeros(6)
 
     return Ke_global, fe_int_global
