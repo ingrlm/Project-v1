@@ -8,7 +8,6 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 import CorotBeam_with_TODO as CorotBeam
-# import CorotBeam as CorotBeam
 import matplotlib.animation as anm
 from copy import deepcopy
 import meshio
@@ -48,6 +47,10 @@ class BeamModel:
             ey = np.array([self.coords[inod1,1],self.coords[inod2,1]])
             Ke = CorotBeam.beam2e(ex, ey, self.ep) #TODO use updated routine here
             Edofs = self.Edofs[iel] - 1
+            # ---
+            # disp_e = disp_sys[np.ix_(Edofs)]
+            # Ke, _ = CorotBeam.beam2corot_Ke_and_Fe(ex, ey, self.ep, disp_e)
+            # ---
             K_sys[np.ix_(Edofs,Edofs)] += Ke
 
         # Set boundary conditions
@@ -77,6 +80,9 @@ class BeamModel:
             Ke = CorotBeam.beam2e(ex, ey, self.ep)   #TODO something better here
             Edofs = self.Edofs[iel] - 1
             disp_e = disp_sys[np.ix_(Edofs)] # ix_ picks elements with indexes in Edofs
+            # ---
+            # _, f_int_e = CorotBeam.beam2corot_Ke_and_Fe(ex, ey, self.ep, disp_e)
+            # ---
             f_int_e = Ke * disp_e   #TODO something better here
             f_int_sys[np.ix_(Edofs)] += f_int_e
 
