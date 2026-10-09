@@ -8,6 +8,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 import CorotBeam_with_TODO as CorotBeam
+# import CorotBeam as CorotBeam
 import matplotlib.animation as anm
 from copy import deepcopy
 import meshio
@@ -87,7 +88,7 @@ class BeamModel:
     def get_external_load(self,loadFactor):
         return (self.inc_load * loadFactor)
 
-    def get_residual(self,loadFactor,disp_sys):
+    def get_residual(self,disp_sys,loadFactor): # Got called by uVec, lambda, changed the order
         f_int = self.get_internal_forces(disp_sys)
         f_res = self.get_external_load(loadFactor) + self.get_internal_forces(disp_sys)
         return f_res
