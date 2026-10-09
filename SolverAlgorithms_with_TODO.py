@@ -39,12 +39,18 @@ def solveNonlinLoadControl(model, load_steps=0.01, max_steps=100, max_iter=30):
         Lambda = load_steps * iStep
 
         #TODO: Implement this
+        
 
         for iIter in range(max_iter):
 
             # TODO: Implement this
+            K = model.get_K_sys(uVec)
 
             res_Vec = model.get_residual(uVec, Lambda)
+            
+            d_uVec = np.linalg.solve(K,res_Vec)
+            uVec+=d_uVec
+
             if (res_Vec.dot(res_Vec) < 1.0e-15):
                 break
 
