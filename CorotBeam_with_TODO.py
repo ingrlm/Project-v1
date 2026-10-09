@@ -34,7 +34,7 @@ def beam2local_def_disp(ex,ey, disp_global):
     # TODO: Quite a bit here
     #---- begin this to do
     dx_def = (ex[1] + disp_global[3]) - (ex[0] + disp_global[0])
-    dy_def = (ey[1] + disp_global[3]) - (ey[0] + disp_global[0])
+    dy_def = (ey[1] + disp_global[4]) - (ey[0] + disp_global[1])
     Ld = math.sqrt(dx_def**2 + dy_def**2)
     #---- end this to do
 
@@ -75,21 +75,30 @@ def beam2corot_Ke_and_Fe(ex,ey,ep, disp_global):
 
     # TODO: Quite a bit here
     #---
+    # Get displacement in local directions
+    def_disp_local = beam2local_def_disp(ex, ey, disp_global) # Usikker på om det er ex og ey eller ex_def og ey_def
 
-    def_disp_local = beam2local_def_disp(ex_def, ey_def, disp_global)
-    Ke_local = beam2local_stiff(L0, ep)     # Usikker på L0 eller L
+    # Local stiffnes matrix
+    Ke_local = beam2local_stiff(L0, ep)     # Usikker på L0 eller L, var L0
 
+    # Local forces from local stiffness matric and displacement
     fe_local = Ke_local @ def_disp_local
-    
 
-    eq = np.array([qx, qy])
+    # Transformation matrix with global displacements
+    Te = beam2corot_Te(ex_def,ey_def)
 
-    Ke_global, fe_int_global = beam2e(ex, ey, ep, eq)
+    # Transform local forces to global
+    fe_int_global = Te.T @ fe_local
+
+    # Global stiffnes matrix
+    Ke_global = beam2e(ex, ey, ep)
+
+    # eq = np.array([qx, qy]) Trengte ikke denne? ref mail fra bjørn
 
     #---
     
     #Ke_global = np.zeros((6,6))
-    fe_int_global = np.zeros(6)
+    #fe_int_global = np.zeros(6)
 
     return Ke_global, fe_int_global
 
